@@ -1,6 +1,5 @@
 using PaymentContext.Domain.ValueObjects;
 using System;
-//using PaymentContext.Domain.ValueObjects;
 
 namespace PaymentContext.Domain.Entities
 {
