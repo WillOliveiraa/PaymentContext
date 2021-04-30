@@ -8,7 +8,7 @@ using System;
 namespace PaymentContext.Tests
 {
     [TestClass]
-    public class StudentQueriesTests
+    public class SubscriptionHandlerTest
     {
         // Red, Green, Refactor
         [TestMethod]
