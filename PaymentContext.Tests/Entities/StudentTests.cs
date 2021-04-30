@@ -14,7 +14,6 @@ namespace PaymentContext.Tests
         private readonly Address _address;
         private readonly Email _email;
         private readonly Student _student;
-        private readonly Subscription _subscription;
 
         public StudentTests()
         {
@@ -23,7 +22,6 @@ namespace PaymentContext.Tests
             _email = new Email("will@teste.com");
             _address = new Address("Rua 0", "123", "Bairro Top", "New York", "New York", "USA", "12321312");
             _student = new Student(_name, _document, _email);
-            _subscription = new Subscription(null);
         }
 
         //[TestMethod]
@@ -39,11 +37,12 @@ namespace PaymentContext.Tests
         [TestMethod]
         public void ShouldReturnErrorWhenHadActiveSubscription()
         {
+            var subscription = new Subscription(null);
             var payment = new PayPalPayment("12345678", DateTime.Now, DateTime.Now.AddDays(5), 10, 10, "Will Corp", _document, _address, _email);
 
-            _subscription.AddPayment(payment);
-            _student.AddSubscription(_subscription);
-            _student.AddSubscription(_subscription);
+            subscription.AddPayment(payment);
+            _student.AddSubscription(subscription);
+            _student.AddSubscription(subscription);
 
             Assert.IsTrue(_student.Invalid);
         }
@@ -51,7 +50,8 @@ namespace PaymentContext.Tests
         [TestMethod]
         public void ShouldReturnErrorWhenSubscriptionHasNoPayment()
         {
-            _student.AddSubscription(_subscription);
+            var subscription = new Subscription(null);
+            _student.AddSubscription(subscription);
 
             Assert.IsTrue(_student.Invalid);
         }
@@ -59,10 +59,11 @@ namespace PaymentContext.Tests
         [TestMethod]
         public void ShouldReturnSuccessWhenHadNoActiveSubscription()
         {
+            var subscription = new Subscription(null);
             var payment = new PayPalPayment("12345678", DateTime.Now, DateTime.Now.AddDays(5), 10, 10, "Will Corp", _document, _address, _email);
 
-            _subscription.AddPayment(payment);
-            _student.AddSubscription(_subscription);
+            subscription.AddPayment(payment);
+            _student.AddSubscription(subscription);
 
             Assert.IsTrue(_student.Valid);
         }

@@ -16,7 +16,8 @@ namespace PaymentContext.Tests
 
         public StudentQueriesTests()
         {
-            for (var i=0; i<=10; i++)
+            _students = new List<Student>();
+            for (var i = 0; i <= 10; i++)
             {
                 _students.Add(new Student(
                     new Name("Aluno", i.ToString()),
@@ -29,7 +30,7 @@ namespace PaymentContext.Tests
         [TestMethod]
         public void ShouldReturnNullWhenDocumentNotExists()
         {
-            var exp = StudentQueries.GetStudentInfo("123344567865");
+            var exp = StudentQueries.GetStudentInfo("12345678911");
             var studn = _students.AsQueryable().Where(exp).FirstOrDefault();
 
             Assert.AreEqual(null, studn);
@@ -38,7 +39,7 @@ namespace PaymentContext.Tests
         [TestMethod]
         public void ShouldReturnStudentWhenDocumentExists()
         {
-            var exp = StudentQueries.GetStudentInfo("1111111111");
+            var exp = StudentQueries.GetStudentInfo("11111111111");
             var studn = _students.AsQueryable().Where(exp).FirstOrDefault();
 
             Assert.AreNotEqual(null, studn);
